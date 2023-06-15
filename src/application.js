@@ -5,6 +5,7 @@ const ImageClassifier = () => {
   const [model, setModel] = useState(null);
   const [prediction, setPrediction] = useState(null);
   const [uploadedImage, setUploadedImage] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const classNames = ['Avocado fruit', 'Cashew fruit', 'Coconut', 'Dragon Fruit', 'Durian', 'Fig fruit', 'Gooseberry', 'Guava', 'Jackfruit', 'Java plum fruit', 'Jujube', 'Longan', 'Lychee', 'Mangosteen', 'Papaya', 'Persimmon', 'Pineapple fruit', 'Pomegranate', 'Rambutan fruit', 'Sapodilla fruit', 'Star apple fruit', 'Star fruit', 'Sweetsop', 'Tamarind fruit', 'Watermelon fruit', 'Wax apple'];
 
   useEffect(() => {
@@ -12,6 +13,7 @@ const ImageClassifier = () => {
       try {
         const model = await tf.loadLayersModel('https://pub-16cdaa3ce2034099afb2eb070ad2d765.r2.dev/file 2/model.json');
         setModel(model);
+        setIsLoading(false);
       } catch (error) {
         console.error('Error loading the model:', error);
       }
@@ -49,21 +51,27 @@ const ImageClassifier = () => {
   return (
     <div>
       <h1>Image Classifier</h1>
-      <input type="file" accept="image/*" onChange={handleImageUpload} />
-      {uploadedImage && (
+      {isLoading ? (
+        <div>Loading model...</div>
+      ) : (
         <div>
-          <h2>Uploaded Image</h2>
-          <img
-            src={uploadedImage}
-            alt="Uploaded"
-            style={{ maxWidth: '256px', maxHeight: '256px' }}
-          />
-        </div>
-      )}
-      {prediction !== null && (
-        <div>
-          <h2>Prediction</h2>
-          <p>Class: {getClassName()}</p>
+          <input type="file" accept="image/*" onChange={handleImageUpload} />
+          {uploadedImage && (
+            <div>
+              <h2>Uploaded Image</h2>
+              <img
+                src={uploadedImage}
+                alt="Uploaded"
+                style={{ maxWidth: '256px', maxHeight: '256px' }}
+              />
+            </div>
+          )}
+          {prediction !== null && (
+            <div>
+              <h2>Prediction</h2>
+              <p>Class: {getClassName()}</p>
+            </div>
+          )}
         </div>
       )}
     </div>
