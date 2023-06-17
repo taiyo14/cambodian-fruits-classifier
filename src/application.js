@@ -1,7 +1,19 @@
 import React, { useState , useEffect} from 'react';
 import * as tf from '@tensorflow/tfjs';
+import './application.css';
+import Button from '@mui/material/Button';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import CssBaseline from '@mui/material/CssBaseline';
+import GitHubIcon from '@mui/icons-material/GitHub';
+
 
 const ImageClassifier = () => {
+  const hiddenFileInput = React.useRef(null);
   const [model, setModel] = useState(null);
   const [prediction, setPrediction] = useState(null);
   const [uploadedImage, setUploadedImage] = useState(null);
@@ -47,34 +59,69 @@ const ImageClassifier = () => {
       }
     };
   };
+  
+  const GoToGitHub = () => {
+    window.open('https://github.com/taiyo14/cambodian-fruits-classifier', '_blank');
+  }
+
+  const clickUpload = (event) => {
+    hiddenFileInput.current.click();
+  }
 
   return (
-    <div>
-      <h1>Image Classifier</h1>
-      {isLoading ? (
-        <div>Loading model...</div>
-      ) : (
-        <div>
-          <input type="file" accept="image/*" onChange={handleImageUpload} />
-          {uploadedImage && (
-            <div>
-              <h2>Uploaded Image</h2>
-              <img
-                src={uploadedImage}
-                alt="Uploaded"
-                style={{ maxWidth: '256px', maxHeight: '256px' }}
-              />
+    <Box sx={{ flexGrow: 1 }}>
+      <CssBaseline/>
+      <AppBar position="static" style={{ margin: 0 }}>
+        <Toolbar variant="dense">
+          <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h4" color="inherit" component="div" style={{flexGrow:'1', textAlign:'center'}}>
+            Cambodian Fruits Classifier
+          </Typography>
+          <IconButton edge="end" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={GoToGitHub}>
+            <GitHubIcon />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+
+      <div className="app-container">
+        {isLoading ? (
+          <div>Loading model...</div>
+        ) : (
+          <div style={{paddingTop: '10%'}}>
+            <div className='centered'>
+              <Button variant="contained" onClick={clickUpload}>Upload Image</Button>
             </div>
-          )}
-          {prediction !== null && (
-            <div>
-              <h2>Prediction</h2>
-              <p>Class: {getClassName()}</p>
-            </div>
-          )}
-        </div>
-      )}
-    </div>
+            <input ref={hiddenFileInput} type="file" accept="image/*" onChange={handleImageUpload} style={{display:'none'}}/>
+              {uploadedImage && (
+                <div>
+                  <div className='centered'>
+                    <h2>Uploaded Image</h2>
+                  </div>
+                  <div className='centered'>
+                    <img
+                      src={uploadedImage}
+                      alt="Uploaded"
+                      style={{ maxWidth: '256px', maxHeight: '256px' }}
+                    />
+                  </div>
+                </div>
+              )}
+              {prediction !== null && (
+                <div>
+                  <div className='centered'>
+                    <h2>Prediction</h2>
+                  </div>
+                  <div className='centered'>
+                    <p>{getClassName()}</p>
+                  </div>
+                </div>
+              )}
+          </div>
+        )}
+      </div>
+    </Box>
   );
 };
 
