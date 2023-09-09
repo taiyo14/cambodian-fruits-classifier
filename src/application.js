@@ -7,7 +7,6 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import CssBaseline from '@mui/material/CssBaseline';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { Drawer } from '@mui/material';
@@ -69,10 +68,6 @@ const ImageClassifier = () => {
 
   const clickUpload = (event) => {
     hiddenFileInput.current.click();
-  }
-
-  const toggleDrawer = () => {
-
   }
 
   return (
