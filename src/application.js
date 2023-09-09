@@ -10,6 +10,8 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import CssBaseline from '@mui/material/CssBaseline';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import { Drawer } from '@mui/material';
+import InfoIcon from '@mui/icons-material/Info';
 
 
 const ImageClassifier = () => {
@@ -18,6 +20,7 @@ const ImageClassifier = () => {
   const [prediction, setPrediction] = useState(null);
   const [uploadedImage, setUploadedImage] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [drawerIsOpen, setDrawerIsOpen] = useState(false);
   const classNames = ['Avocado fruit', 'Cashew fruit', 'Coconut', 'Dragon Fruit', 'Durian', 'Fig fruit', 'Gooseberry', 'Guava', 'Jackfruit', 'Java plum fruit', 'Jujube', 'Longan', 'Lychee', 'Mangosteen', 'Papaya', 'Persimmon', 'Pineapple fruit', 'Pomegranate', 'Rambutan fruit', 'Sapodilla fruit', 'Star apple fruit', 'Star fruit', 'Sweetsop', 'Tamarind fruit', 'Watermelon fruit', 'Wax apple'];
 
   useEffect(() => {
@@ -68,13 +71,17 @@ const ImageClassifier = () => {
     hiddenFileInput.current.click();
   }
 
+  const toggleDrawer = () => {
+
+  }
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <CssBaseline/>
       <AppBar position="static" style={{ margin: 0 }}>
         <Toolbar variant="dense">
-          <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-            <MenuIcon />
+          <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={() => setDrawerIsOpen(true)}>
+            <InfoIcon />
           </IconButton>
           <Typography variant="h4" color="inherit" component="div" style={{flexGrow:'1', textAlign:'center'}}>
             Cambodian Fruits Classifier
@@ -84,6 +91,38 @@ const ImageClassifier = () => {
           </IconButton>
         </Toolbar>
       </AppBar>
+
+      <Drawer open={drawerIsOpen} onClose={() => setDrawerIsOpen(false)} PaperProps={{sx: { width: "15%"},}}>
+        <Typography>
+        <br/>&nbsp;&nbsp;List of avaiable fruits:<br/><br/>
+            &nbsp;&nbsp;&nbsp; _ Avocado fruit<br/>
+            &nbsp;&nbsp;&nbsp; _ Cashew fruit<br/>
+            &nbsp;&nbsp;&nbsp; _ Coconut<br/>
+            &nbsp;&nbsp;&nbsp; _ Dragon Fruit<br/>
+            &nbsp;&nbsp;&nbsp; _ Durian<br/>
+            &nbsp;&nbsp;&nbsp; _ Fig fruit<br/>
+            &nbsp;&nbsp;&nbsp; _ Gooseberry<br/>
+            &nbsp;&nbsp;&nbsp; _ Guava<br/>
+            &nbsp;&nbsp;&nbsp; _ Jackfruit<br/>
+            &nbsp;&nbsp;&nbsp; _ Java plum fruit<br/>
+            &nbsp;&nbsp;&nbsp; _ Jujube<br/>
+            &nbsp;&nbsp;&nbsp; _ Longan<br/>
+            &nbsp;&nbsp;&nbsp; _ Lychee<br/>
+            &nbsp;&nbsp;&nbsp; _ Mangosteen<br/>
+            &nbsp;&nbsp;&nbsp; _ Papaya<br/>
+            &nbsp;&nbsp;&nbsp; _ Persimmon<br/>
+            &nbsp;&nbsp;&nbsp; _ Pineapple fruit<br/>
+            &nbsp;&nbsp;&nbsp; _ Pomegranate<br/>
+            &nbsp;&nbsp;&nbsp; _ Rambutan fruit<br/>
+            &nbsp;&nbsp;&nbsp; _ Sapodilla fruit<br/>
+            &nbsp;&nbsp;&nbsp; _ Star apple fruit<br/>
+            &nbsp;&nbsp;&nbsp; _ Star fruit<br/>
+            &nbsp;&nbsp;&nbsp; _ Sweetsop<br/>
+            &nbsp;&nbsp;&nbsp; _ Tamarind fruit<br/>
+            &nbsp;&nbsp;&nbsp; _ Watermelon fruit<br/>
+            &nbsp;&nbsp;&nbsp; _ Wax apple
+        </Typography>
+      </Drawer>
 
       <div className="app-container">
         {isLoading ? (
